@@ -1,0 +1,26 @@
+# 资源代理配置文件
+[proxy]
+# 是否启用代理功能，默认为false
+enabled = true
+
+# 本地静态文件目录
+static_dir = "./static"
+
+# unpkg缓存目录
+cache_dir = "./cache"
+
+# 日志配置
+[log]
+# 是否启用日志，默认为true
+enabled = true
+
+# 日志级别: trace, debug, info, warn, error
+level = "info"
+
+# 服务器配置
+[server]
+# 监听端口
+port = 8080
+
+# 监听地址
+host = "localhost"

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Hole - PKG Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 30%, #0f0f23 70%, #000000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .black-hole {
+            position: relative;
+            width: min(30vw, 30vh);
+            height: min(30vw, 30vh);
+            border-radius: 50%;
+            background: radial-gradient(circle at center, 
+                transparent 0%, 
+                transparent 10%, 
+                rgba(138, 43, 226, 0.2) 15%, 
+                rgba(138, 43, 226, 0.4) 20%, 
+                rgba(75, 0, 130, 0.6) 25%, 
+                rgba(75, 0, 130, 0.8) 30%, 
+                rgba(25, 25, 112, 0.7) 35%, 
+                rgba(25, 25, 112, 0.9) 40%, 
+                rgba(0, 0, 0, 0.95) 50%, 
+                #000000 65%, 
+                #000000 100%);
+            animation: rotate 20s linear infinite;
+            transform-origin: center;
+        }
+
+        .black-hole::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg,
+                transparent 0deg,
+                rgba(255, 215, 0, 0.1) 10deg,
+                rgba(138, 43, 226, 0.2) 20deg,
+                rgba(75, 0, 130, 0.4) 30deg,
+                rgba(25, 25, 112, 0.5) 40deg,
+                rgba(255, 69, 0, 0.15) 50deg,
+                transparent 70deg,
+                transparent 110deg,
+                rgba(255, 215, 0, 0.08) 120deg,
+                rgba(138, 43, 226, 0.15) 130deg,
+                rgba(75, 0, 130, 0.3) 140deg,
+                rgba(25, 25, 112, 0.4) 150deg,
+                rgba(255, 69, 0, 0.12) 160deg,
+                transparent 180deg,
+                transparent 220deg,
+                rgba(255, 215, 0, 0.06) 230deg,
+                rgba(138, 43, 226, 0.12) 240deg,
+                rgba(75, 0, 130, 0.25) 250deg,
+                rgba(25, 25, 112, 0.3) 260deg,
+                rgba(255, 69, 0, 0.1) 270deg,
+                transparent 290deg,
+                transparent 330deg,
+                rgba(138, 43, 226, 0.1) 340deg,
+                rgba(75, 0, 130, 0.2) 350deg,
+                transparent 360deg),
+                radial-gradient(circle at center, 
+                transparent 0%, 
+                rgba(0, 0, 0, 0.3) 40%, 
+                rgba(0, 0, 0, 0.7) 60%, 
+                rgba(0, 0, 0, 0.9) 75%, 
+                #000000 85%);
+            animation: rotate 15s linear infinite reverse;
+        }
+
+        .black-hole::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg,
+                transparent 0deg,
+                rgba(255, 255, 255, 0.08) 5deg,
+                rgba(255, 215, 0, 0.3) 10deg,
+                rgba(255, 140, 0, 0.35) 15deg,
+                rgba(138, 43, 226, 0.4) 20deg,
+                rgba(75, 0, 130, 0.5) 25deg,
+                rgba(25, 25, 112, 0.45) 30deg,
+                rgba(138, 43, 226, 0.35) 35deg,
+                rgba(255, 69, 0, 0.25) 40deg,
+                rgba(255, 140, 0, 0.2) 45deg,
+                transparent 55deg,
+                transparent 115deg,
+                rgba(255, 255, 255, 0.06) 120deg,
+                rgba(255, 215, 0, 0.25) 125deg,
+                rgba(255, 140, 0, 0.3) 130deg,
+                rgba(138, 43, 226, 0.35) 135deg,
+                rgba(75, 0, 130, 0.4) 140deg,
+                rgba(25, 25, 112, 0.35) 145deg,
+                rgba(138, 43, 226, 0.3) 150deg,
+                rgba(255, 69, 0, 0.2) 155deg,
+                rgba(255, 140, 0, 0.15) 160deg,
+                transparent 170deg,
+                transparent 230deg,
+                rgba(255, 255, 255, 0.04) 235deg,
+                rgba(255, 215, 0, 0.2) 240deg,
+                rgba(255, 140, 0, 0.25) 245deg,
+                rgba(138, 43, 226, 0.3) 250deg,
+                rgba(75, 0, 130, 0.35) 255deg,
+                rgba(25, 25, 112, 0.3) 260deg,
+                rgba(138, 43, 226, 0.25) 265deg,
+                rgba(255, 69, 0, 0.15) 270deg,
+                rgba(255, 140, 0, 0.1) 275deg,
+                transparent 285deg,
+                transparent 360deg),
+                radial-gradient(circle at center, 
+                transparent 0%, 
+                rgba(0, 0, 0, 0.2) 30%, 
+                rgba(0, 0, 0, 0.6) 50%, 
+                rgba(0, 0, 0, 0.85) 65%, 
+                #000000 75%);
+            animation: rotate 10s linear infinite;
+        }
+
+        .core {
+            position: absolute;
+            top: 35%;
+            left: 35%;
+            width: 30%;
+            height: 30%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, 
+                #000000 0%, 
+                #000000 70%, 
+                rgba(0, 0, 0, 0.8) 85%, 
+                transparent 100%);
+            animation: pulse 3s ease-in-out infinite alternate;
+        }
+
+        .accretion-disk {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, 
+                transparent 0deg, 
+                rgba(255, 215, 0, 0.2) 15deg,
+                rgba(255, 140, 0, 0.25) 30deg,
+                rgba(255, 69, 0, 0.35) 45deg, 
+                rgba(255, 0, 0, 0.4) 60deg,
+                rgba(220, 20, 60, 0.3) 75deg,
+                rgba(138, 43, 226, 0.3) 90deg, 
+                rgba(75, 0, 130, 0.35) 105deg,
+                rgba(25, 25, 112, 0.25) 120deg,
+                rgba(255, 0, 0, 0.3) 135deg, 
+                rgba(138, 43, 226, 0.25) 150deg,
+                rgba(255, 20, 147, 0.2) 165deg,
+                rgba(138, 43, 226, 0.2) 180deg, 
+                rgba(75, 0, 130, 0.3) 195deg,
+                rgba(25, 25, 112, 0.2) 210deg,
+                rgba(0, 191, 255, 0.15) 225deg, 
+                rgba(255, 140, 0, 0.15) 240deg,
+                rgba(255, 215, 0, 0.12) 255deg,
+                rgba(255, 69, 0, 0.2) 270deg,
+                rgba(255, 140, 0, 0.18) 285deg,
+                rgba(255, 215, 0, 0.1) 300deg,
+                rgba(255, 140, 0, 0.12) 315deg, 
+                rgba(138, 43, 226, 0.08) 330deg,
+                rgba(255, 215, 0, 0.05) 345deg,
+                transparent 360deg);
+            animation: rotate 25s linear infinite;
+            opacity: 0.6;
+        }
+
+        .control-panel {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+            min-width: 250px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .control-group input, .control-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid rgba(138, 43, 226, 0.5);
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 14px;
+        }
+
+        .control-group input[type="range"] {
+            background: transparent;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #8a2be2;
+            cursor: pointer;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-track {
+            width: 100%;
+            height: 5px;
+            cursor: pointer;
+            background: rgba(138, 43, 226, 0.3);
+            border-radius: 3px;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.3; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .control-panel {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+                padding: 15px;
+            }
+            
+            .black-hole {
+                width: min(45vw, 45vh);
+                height: min(45vw, 45vh);
+            }
+            
+            .container {
+                padding-bottom: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="black-hole" id="blackHole">
+            <div class="accretion-disk"></div>
+            <div class="core"></div>
+        </div>
+    </div>
+
+    <div style="position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); text-align: center; color: rgba(255, 255, 255, 0.9); font-family: 'Consolas', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 14px; line-height: 1.6; letter-spacing: 0.5px;">
+        <div>${pkg}/static/:repo@version/:file</div>
+        <div>By <a href="//Renj.io" style="color: blueviolet">Renj.io</a></div>
+    </div>
+
+    <div class="control-panel">
+        <h3 style="margin-bottom: 15px; color: #8a2be2;">黑洞控制面板</h3>
+        
+        <div class="control-group">
+            <label for="colorSelect">黑洞颜色主题:</label>
+            <select id="colorSelect">
+                <option value="purple">紫色 (默认)</option>
+                <option value="blue">蓝色</option>
+                <option value="red">红色</option>
+                <option value="green">绿色</option>
+                <option value="orange">橙色</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="speedRange">旋转速度: <span id="speedValue">2x</span></label>
+            <input type="range" id="speedRange" min="0.1" max="3" step="0.1" value="1">
+        </div>
+
+        <div class="control-group">
+            <label for="directionSelect">旋转方向:</label>
+            <select id="directionSelect">
+                <option value="normal">顺时针</option>
+                <option value="reverse">逆时针</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        // 创建星空背景
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // 颜色主题配置
+        const colorThemes = {
+            purple: {
+                gradient1: 'rgba(138, 43, 226, 0.3)',
+                gradient2: 'rgba(75, 0, 130, 0.5)',
+                gradient3: 'rgba(25, 25, 112, 0.7)',
+                accent: '#8a2be2'
+            },
+            blue: {
+                gradient1: 'rgba(0, 191, 255, 0.3)',
+                gradient2: 'rgba(30, 144, 255, 0.5)',
+                gradient3: 'rgba(0, 0, 139, 0.7)',
+                accent: '#00bfff'
+            },
+            red: {
+                gradient1: 'rgba(255, 69, 0, 0.3)',
+                gradient2: 'rgba(220, 20, 60, 0.5)',
+                gradient3: 'rgba(139, 0, 0, 0.7)',
+                accent: '#ff4500'
+            },
+            green: {
+                gradient1: 'rgba(0, 255, 127, 0.3)',
+                gradient2: 'rgba(34, 139, 34, 0.5)',
+                gradient3: 'rgba(0, 100, 0, 0.7)',
+                accent: '#00ff7f'
+            },
+            orange: {
+                gradient1: 'rgba(255, 165, 0, 0.3)',
+                gradient2: 'rgba(255, 140, 0, 0.5)',
+                gradient3: 'rgba(255, 69, 0, 0.7)',
+                accent: '#ffa500'
+            }
+        };
+
+        // 获取控制元素
+        const blackHole = document.getElementById('blackHole');
+        const colorSelect = document.getElementById('colorSelect');
+        const speedRange = document.getElementById('speedRange');
+        const speedValue = document.getElementById('speedValue');
+        const directionSelect = document.getElementById('directionSelect');
+
+        // 更新黑洞颜色
+        function updateColor(theme) {
+            const colors = colorThemes[theme];
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .black-hole {
+                    background: radial-gradient(circle at center, 
+                        transparent 0%, 
+                        transparent 15%, 
+                        ${colors.gradient1} 20%, 
+                        ${colors.gradient2} 30%, 
+                        ${colors.gradient3} 45%, 
+                        rgba(0, 0, 0, 0.9) 60%, 
+                        #000000 80%, 
+                        #000000 100%) !important;
+                }
+                .black-hole::before {
+                    background: radial-gradient(circle at center, 
+                        transparent 0%, 
+                        ${colors.gradient1.replace('0.3', '0.2')} 10%, 
+                        ${colors.gradient2.replace('0.5', '0.4')} 25%, 
+                        ${colors.gradient3.replace('0.7', '0.6')} 40%, 
+                        rgba(0, 0, 0, 0.8) 55%, 
+                        #000000 70%) !important;
+                }
+                .black-hole::after {
+                    background: radial-gradient(circle at center, 
+                        transparent 0%, 
+                        ${colors.gradient1.replace('0.3', '0.1')} 15%, 
+                        ${colors.gradient2.replace('0.5', '0.3')} 30%, 
+                        rgba(0, 0, 0, 0.7) 45%, 
+                        #000000 60%) !important;
+                }
+                .control-panel {
+                    border-color: ${colors.accent.replace('#', 'rgba(').replace(')', ', 0.3)')} !important;
+                }
+                .control-panel h3 {
+                    color: ${colors.accent} !important;
+                }
+            `;
+            
+            // 移除旧的样式
+            const oldStyle = document.querySelector('style[data-theme]');
+            if (oldStyle) {
+                oldStyle.remove();
+            }
+            
+            style.setAttribute('data-theme', theme);
+            document.head.appendChild(style);
+        }
+
+        // 更新旋转速度
+        function updateSpeed(speed) {
+            speedValue.textContent = speed + 'x';
+            blackHole.style.animationDuration = (20 / speed) + 's';
+            
+            const beforeElement = blackHole.querySelector('::before');
+            const afterElement = blackHole.querySelector('::after');
+            const accretionDisk = blackHole.querySelector('.accretion-disk');
+            
+            // 更新所有旋转元素的速度
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .black-hole {
+                    animation-duration: ${20 / speed}s !important;
+                }
+                .black-hole::before {
+                    animation-duration: ${15 / speed}s !important;
+                }
+                .black-hole::after {
+                    animation-duration: ${10 / speed}s !important;
+                }
+                .accretion-disk {
+                    animation-duration: ${25 / speed}s !important;
+                }
+            `;
+            
+            const oldSpeedStyle = document.querySelector('style[data-speed]');
+            if (oldSpeedStyle) {
+                oldSpeedStyle.remove();
+            }
+            
+            style.setAttribute('data-speed', 'true');
+            document.head.appendChild(style);
+        }
+
+        // 更新旋转方向
+        function updateDirection(direction) {
+            const style = document.createElement('style');
+            const animationDirection = direction === 'reverse' ? 'reverse' : 'normal';
+            
+            style.innerHTML = `
+                .black-hole {
+                    animation-direction: ${animationDirection} !important;
+                }
+                .black-hole::before {
+                    animation-direction: ${direction === 'reverse' ? 'normal' : 'reverse'} !important;
+                }
+                .black-hole::after {
+                    animation-direction: ${animationDirection} !important;
+                }
+                .accretion-disk {
+                    animation-direction: ${animationDirection} !important;
+                }
+            `;
+            
+            const oldDirectionStyle = document.querySelector('style[data-direction]');
+            if (oldDirectionStyle) {
+                oldDirectionStyle.remove();
+            }
+            
+            style.setAttribute('data-direction', 'true');
+            document.head.appendChild(style);
+        }
+
+        // 事件监听器
+        colorSelect.addEventListener('change', (e) => {
+            updateColor(e.target.value);
+        });
+
+        speedRange.addEventListener('input', (e) => {
+            updateSpeed(parseFloat(e.target.value));
+        });
+
+        directionSelect.addEventListener('change', (e) => {
+            updateDirection(e.target.value);
+        });
+
+        // 初始化
+        createStars();
+        updateColor('purple');
+        updateSpeed(1);
+        updateDirection('normal');
+
+        // 响应式处理
+    </script>
+</body>
+</html>
