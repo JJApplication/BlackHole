@@ -9,6 +9,9 @@ static_dir = "./static"
 # unpkg缓存目录
 cache_dir = "./cache"
 
+# 是否启用断点续传，默认为false
+resume = false
+
 # 日志配置
 [log]
 # 是否启用日志，默认为true

@@ -12,6 +12,8 @@
 
 4. **TOML配置**：使用TOML配置文件控制代理功能的开启/关闭。
 
+5. **断点续传**：`proxy.resume = true` 时，未完成的 unpkg 下载会保留为 `.part` 并从断点继续；对本服务已有文件的单段 Range 请求返回 206。
+
 ## 配置文件
 
 配置文件 `config.toml` 包含以下选项：
@@ -24,6 +26,8 @@ enabled = false
 static_dir = "./static"
 # unpkg缓存目录
 cache_dir = "./cache"
+# 是否启用断点续传，默认为false
+resume = false
 
 [server]
 # 监听端口
@@ -97,3 +101,4 @@ host = "localhost"
 2. 确保有网络连接以访问unpkg.com
 3. 缓存文件会保存在 `cache` 目录中，可以手动清理
 4. 支持常见的文件类型Content-Type设置（CSS、JS、JSON、HTML、图片等）
+5. 断点续传默认关闭。开启后，中断的缓存下载会留在 `cache` 目录的 `.part` 文件里，下次从已下载字节继续
